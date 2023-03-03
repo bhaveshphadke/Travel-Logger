@@ -1,0 +1,18 @@
+.login-signup-components-tab{
+    display: flex;
+    justify-content: space-between;
+    width: 45vmax;
+    margin:80px auto;
+    /* padding: 20px; */
+    border: .1px solid black;
+}
+.login-signup-components-tab > div{
+    color:black;
+    font-size: 1.2rem;
+    width: 100%;
+    padding: 20px;
+}
+
+.active{
+    background-color: pink;
+}

@@ -1,0 +1,72 @@
+.editModal {
+  margin: auto;
+  /* z-index: -1; */
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(128, 128, 128, 0.296);
+}
+.editModal .modalContent {
+  display: flex;
+  justify-content: center;
+  height: 80%;
+  margin: 10px auto;
+  width: 80%;
+  background-color: white;
+  padding-top: 70px;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+.modalCloseButton{
+    position: inherit;
+    padding: 0 10px;
+    top: 10px;
+    right: 10px;
+}
+
+
+/* Form  */
+.user-form-title{
+  text-align: center;
+  margin: 10px 0;
+}
+.user-form-credentials{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: -15px;
+}
+.user-form-credentials > div{
+  width: 40vmax;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.user-form-credentials > div > input{
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  outline: 1px solid #ffc0cb;
+
+}
+.user-form-credentials > div > button{
+  width: 105%;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #ffc0cb;
+}
+.user-checkbox{
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+}

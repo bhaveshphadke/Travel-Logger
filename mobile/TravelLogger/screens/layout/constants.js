@@ -1,0 +1,1 @@
+export const pinkTextColor = '#ff6580'

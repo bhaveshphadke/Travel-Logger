@@ -1,0 +1,1 @@
+ java -jar "D:\Code playground\Projects\Travel-Log-App\mobile\build\bundletool-all-1.14.0.jar" build-apks --bundle="D:\Code playground\Projects\Travel-Log-App\mobile\build\application-4ac51230-4368-4ce0-9425-cb10a9c1790e.aab" --output="D:\Code playground\Projects\Travel-Log-App\mobile\build\build.apks" --mode=universal

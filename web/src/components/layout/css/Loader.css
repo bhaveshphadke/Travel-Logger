@@ -1,0 +1,17 @@
+.loader{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    box-shadow: 1px 2px black;
+    animation: loader 1s infinite;
+    margin: auto;
+}
+
+@keyframes loader {
+    from{
+        transform: rotateZ(0deg);
+    }
+    to{
+        transform: rotateZ(360deg);
+    }
+}
