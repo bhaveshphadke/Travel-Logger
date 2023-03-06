@@ -41,15 +41,16 @@ const UpdateProfile = () => {
               >
                 {
                   userReducer && !userReducer.loading ?
-                  <Entypo name="save" size={30} color={pinkTextColor} />
-                  :
-                  <ActivityIndicator size={30} color={pinkTextColor} />
+                    <Entypo name="save" size={30} color={pinkTextColor} />
+                    :
+                    <ActivityIndicator size={30} color={pinkTextColor} />
                 }
               </TouchableOpacity>
             </View>
             {userReducer && userReducer.message && <Text>{userReducer.message}</Text>}
             <View style={styles.eachInputView}>
               <TextInput
+                secureTextEntry={true}
                 value={password}
                 onChangeText={setPassword}
                 placeholder="Change Password"
@@ -60,14 +61,14 @@ const UpdateProfile = () => {
                   disptach(ChangePassword({ password }))
                 }}
               >
-               {
-                passwordReducer && !passwordReducer.loading ?
+                {
+                  passwordReducer && !passwordReducer.loading ?
 
-                <Entypo name="save" size={30} color={pinkTextColor} />
+                    <Entypo name="save" size={30} color={pinkTextColor} />
 
-                :
-                <ActivityIndicator size={30} color={pinkTextColor}/>
-               }
+                    :
+                    <ActivityIndicator size={30} color={pinkTextColor} />
+                }
               </TouchableOpacity>
 
             </View>

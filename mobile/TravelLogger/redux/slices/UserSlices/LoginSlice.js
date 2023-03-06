@@ -11,11 +11,9 @@ export const LoginUser = createAsyncThunk(
             credentials: "include",
             body: JSON.stringify(userdata)
         }
-        console.log(1);
+        // console.log(process.env['API_KEY']);
         const response = await fetch(`${host}/mobile/login`, config);
-        console.log(`${host}/mobile/login`);
         const data = await response.json()
-        console.log(1);
         if(data.success){
             await AsyncStorage.setItem('token',data.token || null)
         }

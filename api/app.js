@@ -15,8 +15,9 @@ connectToMongo()
 // Middlewares
 app.use(cors(
     {
-        origin: ['http://localhost:3000'],
-        credentials: true
+        origin: ['http://localhost:3000','https://travel-logger.onrender.com'],
+        credentials: true,
+        default:'http://localhost:3000'
     }
 ))
 

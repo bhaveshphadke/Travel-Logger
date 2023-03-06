@@ -47,6 +47,7 @@ const Login = ({ navigation }) => {
                         </View>
                         <View>
                             <TextInput
+                                secureTextEntry={true}
                                 value={password}
                                 onChangeText={setPassword}
                                 style={styles.UserInput}
@@ -60,9 +61,9 @@ const Login = ({ navigation }) => {
                             >
                                 <Text style={{ textAlign: 'center' }}>Login</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={()=>{
+                            <TouchableOpacity onPress={() => {
                                 navigation.navigate('ForgetPassword')
-                            }}><Text style={{color:'blue',textDecorationLine:'underline', marginTop:10}}>forget password?</Text></TouchableOpacity>
+                            }}><Text style={{ color: 'blue', textDecorationLine: 'underline', marginTop: 10 }}>forget password?</Text></TouchableOpacity>
                         </View>
 
                     </View >
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
     HeaadingText: {
         fontSize: 35,
         textAlign: 'center',
-        color:`${pinkTextColor}`
+        color: `${pinkTextColor}`
     },
     UserInput: {
         borderWidth: 1,
