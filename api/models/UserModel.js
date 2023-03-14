@@ -9,6 +9,14 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    bio:{
+            description: {
+                type: String
+            },
+            link: {
+                type:String
+            }
+        },
     avatar: [
         {
             public_id: {
@@ -72,10 +80,10 @@ const UserSchema = new mongoose.Schema({
                 }
 
             },
-            count:{
-                type:Number,
-                required:true,
-                default:0
+            count: {
+                type: Number,
+                required: true,
+                default: 0
             }
 
         }

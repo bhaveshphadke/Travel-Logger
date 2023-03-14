@@ -6,6 +6,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ChangeUsername } from '../../redux/slices/UserSlices/ChangeUsernameSlice';
 import { ChangePassword } from '../../redux/slices/UserSlices/ChangePasswordSlice';
 import Loader from '../layout/Loader'
+import { FetchUser } from '../../redux/slices/UserSlices/FetchUserSlice';
+import { toast } from '../../redux/slices/UtilsSlices/ToastReducer';
+import Toast from '../layout/Toast';
 const UpdateProfile = () => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
@@ -18,8 +21,20 @@ const UpdateProfile = () => {
       setUsername(user.username)
     }
   }, [])
+
+  const ChangeUserNameFunc = async () => {
+    await disptach(ChangeUsername({ username, oldUsername: user.username }))
+    disptach(toast('message'))
+
+    disptach(FetchUser())
+  }
+  const ChangePasswordFunc = async () => {
+    await disptach(ChangePassword({ password }))
+    disptach(FetchUser())
+  }
   return (
     <View style={styles.Container}>
+      <Toast />
       {
         user &&
         <View>
@@ -35,9 +50,7 @@ const UpdateProfile = () => {
                 style={styles.inputField}
               />
               <TouchableOpacity
-                onPress={() => {
-                  disptach(ChangeUsername({ username, oldUsername: user.username }))
-                }}
+                onPress={ChangeUserNameFunc}
               >
                 {
                   userReducer && !userReducer.loading ?
@@ -57,9 +70,7 @@ const UpdateProfile = () => {
                 style={styles.inputField}
               />
               <TouchableOpacity
-                onPress={() => {
-                  disptach(ChangePassword({ password }))
-                }}
+                onPress={ChangePasswordFunc}
               >
                 {
                   passwordReducer && !passwordReducer.loading ?
@@ -86,7 +97,7 @@ export default UpdateProfile
 
 const styles = StyleSheet.create({
   Container: {
-    marginTop: 70
+    paddingTop: 70
   },
   head: {
     textAlign: 'center',
@@ -108,7 +119,7 @@ const styles = StyleSheet.create({
   },
   inputField: {
     width: '70%',
-    borderWidth: 1,
+    borderBottomWidth: 1,
     borderColor: pinkTextColor,
     padding: 10,
     borderRadius: 4,

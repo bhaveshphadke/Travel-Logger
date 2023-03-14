@@ -6,9 +6,7 @@ import Screen from './screens/Screen'
 export default function App() {
   return (
     <Provider store={store}>
-      {/* <ScrollView contentContainerStyle={{ flex: 1 }}> */}
         <Screen />
-      {/* </ScrollView> */}
     </Provider>
 
   );

@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
 
 const connectToMongo = ()=>{
-    mongoose.connect(process.env.MONGO_URI,(err)=>{
+    mongoose.set('strictQuery', false);
+    mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true},(err)=>{
         if(err) return console.log('Some error occured');
         return console.log("Connected Successfully");
     })

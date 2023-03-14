@@ -41,7 +41,7 @@ const Signup = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const response = await dispatch(SignupUser({...credentials, avatar}))
+    const response = await dispatch(SignupUser({ ...credentials, avatar }))
     if (response && response.payload) {
       toast(response.payload.message)
     }
@@ -83,8 +83,9 @@ const Signup = () => {
                       <img src={previewImage} alt="profile picture" />
                     </div>
                     <div>
-                      <input type="file" name="avatar" id="avatar" className="avatar" onChange={onChange} required/>
-                    </div>                  </div>
+                      <input type="file" name="avatar" id="avatar" className="avatar" onChange={onChange} required />
+                    </div>
+                  </div>
                   <div className="user-form-submit">
                     <button type='submit'>Signup</button>
                   </div>

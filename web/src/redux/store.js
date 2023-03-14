@@ -4,11 +4,12 @@ import LoginReducer from './slices/UserSlices/LoginSlice'
 import FetchUserReducer from './slices/UserSlices/FetchSlice'
 import LogoutUserReducer from './slices/UserSlices/LogoutSlice'
 import ForgetPasswordReducer from './slices/UserSlices/ForgetPasswordSlice'
-import ChangeUsernameReducer from './slices/UserSlices/ChangeUsernameSlice'
-import ChangePasswordReducer from './slices/UserSlices/ChangePasswordSlice'
+import ChangeUsernameReducer from './slices/ProfileSlices/ChangeUsernameSlice'
+import ChangePasswordReducer from './slices/ProfileSlices/ChangePasswordSlice'
 import FetchAllUserAdminReducer from './slices/AdminSlices/FetchAllUsersAdminSlice'
 import EditProfileAdminReducer from './slices/AdminSlices/EditProfileSlice'
 import DeleteUserAdminReducer from './slices/AdminSlices/DeleteUserAdminSlice'
+import ChangeBioReducer from './slices/ProfileSlices/ChangeBio'
 const store = configureStore({
     reducer:{
         SignupReducer,
@@ -20,7 +21,8 @@ const store = configureStore({
         ChangePasswordReducer,
         FetchAllUserAdminReducer,
         EditProfileAdminReducer,
-        DeleteUserAdminReducer
+        DeleteUserAdminReducer,
+        ChangeBioReducer
     }
 })
 

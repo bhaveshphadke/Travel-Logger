@@ -7,7 +7,6 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const Profile = () => {
     const dispatch = useDispatch()
-    const navigate = useNavigate()
     const { user } = useSelector(state => state.FetchUserReducer)
     useEffect(() => {
         dispatch(FetchUser())
@@ -46,10 +45,13 @@ const Profile = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="profile-bio">
-                            <div className="bio">Lorem ipsum dolor sit amet. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquam, ducimus.</div>
-                            <div className="link"><a href="/" target="_blanck">Lorem ipsum dolor sit amet.</a></div>
-                        </div>
+                        {
+                            user.bio &&
+                            <div className="profile-bio">
+                                <div className="bio">{user.bio.description && user.bio.description}</div>
+                                <div className="link"><a href={user.bio.link} target="_blank">{user.bio.link && user.bio.link}</a></div>
+                            </div>
+                        }
                         <div className="profile-buttons">
                             <div className="profile-update">
                                 {

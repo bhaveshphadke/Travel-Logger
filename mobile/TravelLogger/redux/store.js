@@ -6,6 +6,7 @@ import ForgetPasswordReducer from './slices/UserSlices/ForgetPasswordSlice'
 import ChangePasswordReducer from './slices/UserSlices/ChangePasswordSlice'
 import ChangeUsernameReducer from './slices/UserSlices/ChangeUsernameSlice'
 import FetchAlluserAdminReducer from './slices/AdminSlices/FetchAllusersAdminSlice'
+import ToastReducer from './slices/UtilsSlices/ToastReducer'
 const store = configureStore({
     reducer:{
         LoginReducer,
@@ -14,7 +15,8 @@ const store = configureStore({
         ForgetPasswordReducer,
         ChangePasswordReducer,
         ChangeUsernameReducer,
-        FetchAlluserAdminReducer
+        FetchAlluserAdminReducer,
+        ToastReducer
     }
 })
 

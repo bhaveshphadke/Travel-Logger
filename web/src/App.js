@@ -10,11 +10,10 @@ import { FetchUser } from './redux/slices/UserSlices/FetchSlice';
 import ForgetPassword from './components/User/ForgetPassword';
 import SetForgottenPassword from './components/User/SetForgottenPassword';
 import { ToastContainer } from 'react-toastify';
-import Profile from './components/User/Profile';
-import UpdateProfile from './components/User/UpdateProfile';
-import Footer from './components/layout/Footer';
 import AllUsers from './components/Admin/AllUsers';
 import PageNotFound from './components/layout/PageNotFound';
+import Profile from './components/Profile/Profile';
+import UpdateProfile from './components/Profile/UpdateProfile';
 function App() {
   const dispatch = useDispatch()
   useEffect(() => {

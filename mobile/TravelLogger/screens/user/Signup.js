@@ -1,9 +1,9 @@
-import { ActivityIndicator, Alert, Button, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Alert, Button, Image, Keyboard, KeyboardAvoidingView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { FetchUser } from '../../redux/slices/UserSlices/FetchUserSlice'
 import { SignupUser } from '../../redux/slices/UserSlices/SignupSlice'
-import Loader from '../layout/Loader'
+// import Loader from '../Layout/Loader'
 import { pinkTextColor } from '../layout/constants'
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
@@ -17,13 +17,14 @@ const Signup = ({ navigation }) => {
     const fetchuser = useSelector(state => state.FetchUserReducer)
     const dispatch = useDispatch()
     const onSubmit = async () => {
-        const res = await dispatch(SignupUser({ username, email, password,avatar }))
+        const res = await dispatch(SignupUser({ username, email, password, avatar }))
         dispatch(FetchUser())
 
         if (res && res.payload.success) {
             navigation.navigate('Home')
         }
-        Alert.alert(res.payload.message)
+        dispatch(toast(res.payload.message))
+
 
     }
 
@@ -51,7 +52,8 @@ const Signup = ({ navigation }) => {
                 loading ?
                     <Loader message={message} />
                     :
-                    <View style={styles.SignupContainer}>
+                    <View style={styles.SignupContainer} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+
                         <View style={styles.Heading}>
                             <Text style={styles.HeaadingText}>
                                 Signup
@@ -87,7 +89,6 @@ const Signup = ({ navigation }) => {
                                 onPress={pickImage}
                             />
                         </View>
-
                         <View style={styles.SignupButtonView}>
                             <TouchableOpacity
                                 style={styles.SignupButton}
@@ -100,15 +101,15 @@ const Signup = ({ navigation }) => {
                         {
                             avatar &&
                             // <Text></Text>
-                           <ScrollView>
-                             <View>
-                                <Image
-                                    style={styles.avatar}
-                                    source={{uri:avatar} }
-                                />
-                                <Text>{avatar}</Text>
-                            </View>
-                           </ScrollView>
+                            <ScrollView>
+                                <View>
+                                    <Image
+                                        style={styles.avatar}
+                                        source={{ uri: avatar }}
+                                    />
+                                    <Text>{avatar}</Text>
+                                </View>
+                            </ScrollView>
                         }
                     </View>
 
@@ -137,7 +138,7 @@ const styles = StyleSheet.create({
         color: `${pinkTextColor}`
     },
     UserInput: {
-        borderWidth: 1,
+        borderBottomWidth: 1,
         borderColor: '#ffc0cb',
         marginTop: 20,
         fontSize: 15,

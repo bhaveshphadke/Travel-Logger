@@ -13,7 +13,7 @@ EMAIL_SECRETE = process.env.EMAIL_SECRETE
 //Signup
 exports.Signup = CatchAsyncError(async (req, res, next) => {
     console.log(1);
-    
+
     const { username, email, password, avatar } = req.body;
     let user = await User.findOne({ username })
     if (user) {
@@ -27,7 +27,7 @@ exports.Signup = CatchAsyncError(async (req, res, next) => {
         folder: 'a'
     })
     // }
-console.log(1);
+    console.log(1);
     user = await User.create({
         username, email, password: hashPassword, avatar: {
             public_id: avatarOutput.public_id,
@@ -161,11 +161,11 @@ exports.ChangePassword = CatchAsyncError(async (req, res, next) => {
 // Change Username
 exports.ChangeUsername = CatchAsyncError(async (req, res, next) => {
     const { oldUsername, newUsername } = req.body
-
-    let user = await User.findOne({ username: oldUsername, id: req.userID })
+    let user = await User.findOne({ username: oldUsername, _id: req.userID })
     if (!user) {
         return next(ErrorHandler(403, "Not Authorised!!"))
     }
+    // console.log(2);
 
     newUser = await User.findOne({ username: newUsername })
     if (newUser) {
@@ -178,6 +178,27 @@ exports.ChangeUsername = CatchAsyncError(async (req, res, next) => {
     res.status(200).json({
         success: true,
         message: "Username changed Successfully!!"
+    })
+})
+
+// Change BIO
+exports.ChangeBio = CatchAsyncError(async (req, res, next) => {
+    const { description, link } = req.body
+    const user = await User.findById(req.userID)
+
+    if (!user) {
+        return next(ErrorHandler(401, 'Invalid User!!'))
+    }
+    if (description) {
+        user.bio.description = description
+    }
+    if (link) {
+        user.bio.link = link
+    }
+    user.save()
+    res.status(200).json({
+        success: true,
+        message: `${description ? "bio updated succesfully" : "link updated successfully"}`
     })
 })
 

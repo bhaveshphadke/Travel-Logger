@@ -7,6 +7,7 @@ JWT_SECRETE = process.env.JWT_SECRETE
 
 exports.VerifyUser = CatchAsyncError(async (req, res, next) => {
     const token = req.header('token') || req.cookies.token
+    // console.log(1);
     if (token === undefined || token === null || token === "") {
         return next(ErrorHandler(403, "Not Authorised!!"))
     }

@@ -1,10 +1,11 @@
-import { ActivityIndicator, Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Alert, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { LoginUser } from '../../redux/slices/UserSlices/LoginSlice'
 import { FetchUser } from '../../redux/slices/UserSlices/FetchUserSlice'
 import Loader from '../layout/Loader'
 import { pinkTextColor } from '../layout/constants'
+import { toast } from '../../redux/slices/UtilsSlices/ToastReducer'
 const Login = ({ navigation }) => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
@@ -17,7 +18,7 @@ const Login = ({ navigation }) => {
         if (res && res.payload.success) {
             navigation.navigate('Home')
         }
-        Alert.alert(res.payload.message)
+        dispatch(toast(res.payload.message))
     }
     useEffect(() => {
         if (fetchuser && fetchuser.success) {
@@ -31,7 +32,7 @@ const Login = ({ navigation }) => {
                 loading ?
                     <Loader message={message} />
                     :
-                    <View style={styles.LoginContainer}>
+                    <KeyboardAvoidingView style={styles.LoginContainer}>
                         <View style={styles.Heading}>
                             <Text style={styles.HeaadingText}>
                                 Login
@@ -62,11 +63,11 @@ const Login = ({ navigation }) => {
                                 <Text style={{ textAlign: 'center' }}>Login</Text>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={() => {
-                                navigation.navigate('ForgetPassword')
+                                navigation.navigate('Forget Password')
                             }}><Text style={{ color: 'blue', textDecorationLine: 'underline', marginTop: 10 }}>forget password?</Text></TouchableOpacity>
                         </View>
 
-                    </View >
+                    </KeyboardAvoidingView >
             }
         </View >
 
@@ -91,7 +92,7 @@ const styles = StyleSheet.create({
         color: `${pinkTextColor}`
     },
     UserInput: {
-        borderWidth: 1,
+        borderBottomWidth: 1,
         borderColor: '#ffc0cb',
         marginTop: 20,
         fontSize: 15,

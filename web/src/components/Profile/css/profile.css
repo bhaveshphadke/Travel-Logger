@@ -71,49 +71,6 @@ a {
   width: 100%;
   height: 100%;
 }
-.profile-update > a > button {
-  padding: 5px;
-  background-color: white;
-  border-radius: 5px;
-  font-size: 1.2rem;
-}
-
-.profile-buttons {
-  border-bottom: 2px solid black;
-  padding: 10px 0;
-}
-
-.updateprfile-container{
-  border: 1px solid #ff6e99;
-  width: 50%;
-  margin: 20px auto;
-}
-.updateprfile-container > .heading{
-  text-align: center;
-  margin: 20px 0;
-}
-
-.updateprfile-container > .details{
-  margin: 10px 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-.updateprfile-container > .details > .update-field{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 10px 0;
-}
-.updateprfile-container > .details > .update-field > input{
-  border: .6px solid #ff6e99;
-  padding: 5px;
-  border-radius: 5px;
-  margin-right: 10px;
-  font-size:1.2rem;
-}
 @media screen and (max-width: 1000px) {
   .post-image {
     width: 50%;
@@ -122,12 +79,12 @@ a {
   .post-image > img {
     height: 100%;
   }
-  .profile-posts > div{
+  .profile-posts > div {
     width: 50vmax;
   }
-  .updateprfile-container{
+  .updateprfile-container {
     border: 1px solid #ff6e99;
-    width:95%;
+    width: 95%;
     margin: 100px auto;
   }
 }

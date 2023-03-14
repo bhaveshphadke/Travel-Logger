@@ -70,3 +70,15 @@
   flex-direction: row;
   justify-content: left;
 }
+
+@media screen and (max-width: 480px) {
+  .editModal .modalContent {
+    width: 95%;
+  }
+  .user-form-credentials > div{
+    width: 80%;
+  }
+  form{
+    width: 100%;
+  }
+}
