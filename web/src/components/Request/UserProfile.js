@@ -85,6 +85,7 @@ const UserProfile = () => {
 
                                     <button onClick={async() => {
                                         await dispatch(FollowFucntion(user._id))
+                                        await dispatch(ShowSingleUserFunction(username))
                                         dispatch(FetchUser())
                                     }}>
                                         {followText}

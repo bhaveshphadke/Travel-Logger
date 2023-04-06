@@ -91,18 +91,12 @@ const UserSchema = new mongoose.Schema({
     followers: {
         user: [
             {
-                useID: {
+                userID: {
                     type: mongoose.Types.ObjectId,
                     required: true
                 }
             }
-        ],
-        count: {
-            type: Number,
-            required: true,
-            default: 0
-
-        }
+        ]
     }
     ,
     following: {
@@ -113,13 +107,7 @@ const UserSchema = new mongoose.Schema({
                     required: true
                 }
             }
-        ],
-        count: {
-            type: Number,
-            required: true,
-            default: 0
-
-        },
+        ]
     },
     isAdmin: {
         type: Boolean,

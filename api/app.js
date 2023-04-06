@@ -15,15 +15,18 @@ connectToMongo()
 // Middlewares
 app.use(cors(
     {
-        origin: ['http://localhost:3000','https://travel-logger.onrender.com'],
         credentials: true,
-        default:'http://localhost:3000'
+        origin: [
+            "http://localhost:3000",
+        ],
+        methods: ["GET", "POST"],
+
     }
 ))
 
 app.use(cookieParser())
-app.use(express.json({limit: '50mb'}));
-app.use(express.urlencoded({extended: true}))
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ extended: true }))
 cloudinary.config({
     cloud_name: "dibwpamp7",
     api_key: 576223434431196,
@@ -31,7 +34,7 @@ cloudinary.config({
 })
 
 // Static files
-app.use('/', express.static(path.join(__dirname,"build")))
+app.use('/', express.static(path.join(__dirname, "build")))
 
 // Routes 
 const userWebRoute = require(path.join(__dirname, 'routes/UserRoute/userWebRoute.js'))

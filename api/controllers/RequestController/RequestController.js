@@ -38,22 +38,30 @@ exports.FollowController = CatchAsyncError(async (req, res, next) => {
         return next(ErrorHandler(404, "User Not Found!!"));
 
     }
-    let users 
+    let users
     let me = await User.findById(req.userID);
     let filteredUser = me.following.user.filter((item) => {
         return item.userID == user.id
     })
-    
+
     if (filteredUser.length === 0) {
         me.following.user.push({ userID: user.id })
-    } 
+        user.followers.user.push({ userID: me.id })
+    }
     else {
-        users = me.following.user.filter((item) =>{
-            return  item.userID != user.id
+        users = me.following.user.filter((item) => {
+            return item.userID != user.id
         });
         me.following.user = users;
+
+        users = user.followers.user.filter((item)=>{
+            return item.userID != me.id;
+        })
+
+        user.followers = users;
     }
     me.save();
+    user.save()
     res.status(200).json({
         success: true,
         message: 'success',
