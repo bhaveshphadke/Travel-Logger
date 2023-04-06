@@ -10,6 +10,9 @@ import FetchAllUserAdminReducer from './slices/AdminSlices/FetchAllUsersAdminSli
 import EditProfileAdminReducer from './slices/AdminSlices/EditProfileSlice'
 import DeleteUserAdminReducer from './slices/AdminSlices/DeleteUserAdminSlice'
 import ChangeBioReducer from './slices/ProfileSlices/ChangeBio'
+import ShowListReducer from './slices/RequestSlices/ShowList'
+import ShowSingleUserReducer from './slices/RequestSlices/ShowSingleUserSlice'
+import FollowReducer from './slices/RequestSlices/FollowSlice'
 const store = configureStore({
     reducer:{
         SignupReducer,
@@ -22,7 +25,11 @@ const store = configureStore({
         FetchAllUserAdminReducer,
         EditProfileAdminReducer,
         DeleteUserAdminReducer,
-        ChangeBioReducer
+        ChangeBioReducer,
+        ShowListReducer,
+        ShowSingleUserReducer,
+        FollowReducer
+        
     }
 })
 

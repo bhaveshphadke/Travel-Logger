@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FetchUser } from '../../redux/slices/UserSlices/FetchUserSlice';
 import Loader from './Loader';
 import Toast from './Toast';
+import { toast } from '../../redux/slices/UtilsSlices/ToastReducer';
 const Home = () => {
     const dispatch = useDispatch()
     const { user, loading, success } = useSelector(state => state.FetchUserReducer)

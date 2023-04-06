@@ -1,0 +1,30 @@
+.search-user-div {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.search-user-div > input {
+  padding: 5px 10px;
+  width: 40%;
+  outline: none;
+  border: 1px solid #ff6580;
+  border-radius: 10px;
+}
+
+.pick-user {
+  border-bottom: 0.5px solid #ff6580;
+  /* padding-bottom: 5px; */
+  padding: 0 0 5px 10px;
+}
+.pick-user > a {
+  color: black;
+  text-decoration: none;
+}
+
+.pick-user:hover {
+  background-color: rgb(222, 222, 222);
+}
+
+.pick-users-container {
+  margin-top: 10px;
+}

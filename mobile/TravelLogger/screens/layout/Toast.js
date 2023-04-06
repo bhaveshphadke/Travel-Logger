@@ -34,7 +34,10 @@ const styles = StyleSheet.create({
         backgroundColor: pinkTextColor,
         display:'flex',
         flexDirection:'row',
-        justifyContent:'space-between'
+        justifyContent:'space-between',
+        position:'absolute',
+        top:0,
+        zIndex:1
     },
     toastMessage: {
         color: 'white'

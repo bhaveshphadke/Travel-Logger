@@ -3,10 +3,11 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { FetchUser } from '../../redux/slices/UserSlices/FetchUserSlice'
 import { SignupUser } from '../../redux/slices/UserSlices/SignupSlice'
-// import Loader from '../Layout/Loader'
 import { pinkTextColor } from '../layout/constants'
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
+import profile from '../../assets/images/profile.webp'
+import Loader from '../layout/Loader'
 const Signup = ({ navigation }) => {
     const [avatar, setAvatar] = useState(null)
     const [username, setUsername] = useState("")
@@ -19,16 +20,11 @@ const Signup = ({ navigation }) => {
     const onSubmit = async () => {
         const res = await dispatch(SignupUser({ username, email, password, avatar }))
         dispatch(FetchUser())
-
-        if (res && res.payload.success) {
-            navigation.navigate('Home')
-        }
         dispatch(toast(res.payload.message))
-
-
     }
-
     const pickImage = async () => {
+        // console.log(2);
+
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
             allowsEditing: true,
@@ -36,9 +32,15 @@ const Signup = ({ navigation }) => {
             quality: 1,
         });
         if (!result.canceled) {
-            const base64 = await FileSystem.readAsStringAsync(result.assets[0].uri, { encoding: 'base64' });
-            setAvatar(`data:image/png;base64,${base64}`)
+            const fileInfo = await FileSystem.getInfoAsync(result.assets[0].uri)
+            if (fileInfo.size / 1024 / 1024 < 0.1) {
+                console.log(fileInfo.size / 1024 / 1024);
+                const base64 = await FileSystem.readAsStringAsync(result.assets[0].uri, { encoding: 'base64' });
+                console.log(base64.length);
+                setAvatar(`data:image/jpg;base64,${base64}`)
+            }
         }
+
     }
 
     useEffect(() => {
@@ -83,11 +85,36 @@ const Signup = ({ navigation }) => {
                                 placeholder="Password"
                             />
                         </View>
-                        <View>
-                            <Button
-                                title='click me'
-                                onPress={pickImage}
-                            />
+
+                        <View style={styles.ImageInputContainer}>
+                            {
+                                avatar ?
+                                    <View>
+                                        <TouchableOpacity
+                                            onPress={pickImage}
+                                        >
+                                            <Image
+                                                style={styles.avatar}
+                                                source={{ uri: avatar }}
+                                            />
+                                            {/* <Text>{avatar}</Text> */}
+                                        </TouchableOpacity>
+                                    </View>
+
+                                    :
+
+                                    <View>
+                                        <TouchableOpacity
+                                            onPress={pickImage}
+                                        >
+                                            <Image
+                                                style={styles.avatar}
+                                                source={profile}
+                                            />
+                                        </TouchableOpacity>
+                                        {/* <Text>{avatar}</Text> */}
+                                    </View>
+                            }
                         </View>
                         <View style={styles.SignupButtonView}>
                             <TouchableOpacity
@@ -98,20 +125,8 @@ const Signup = ({ navigation }) => {
                             </TouchableOpacity>
 
                         </View >
-                        {
-                            avatar &&
-                            // <Text></Text>
-                            <ScrollView>
-                                <View>
-                                    <Image
-                                        style={styles.avatar}
-                                        source={{ uri: avatar }}
-                                    />
-                                    <Text>{avatar}</Text>
-                                </View>
-                            </ScrollView>
-                        }
                     </View>
+
 
 
             }
@@ -159,6 +174,14 @@ const styles = StyleSheet.create({
     },
     avatar: {
         width: 100,
-        height: 100
+        height: 100,
+        borderRadius: 50
+    },
+    ImageInputContainer: {
+        marginTop: 10,
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'row',
+        alignItems: 'center'
     }
 })

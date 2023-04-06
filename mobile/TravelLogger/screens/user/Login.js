@@ -15,16 +15,8 @@ const Login = ({ navigation }) => {
     const onSubmit = async () => {
         const res = await dispatch(LoginUser({ username, password }))
         dispatch(FetchUser())
-        if (res && res.payload.success) {
-            navigation.navigate('Home')
-        }
         dispatch(toast(res.payload.message))
     }
-    useEffect(() => {
-        if (fetchuser && fetchuser.success) {
-            navigation.navigate('Home')
-        }
-    }, [fetchuser])
     return (
 
         <View>

@@ -14,6 +14,8 @@ import AllUsers from './components/Admin/AllUsers';
 import PageNotFound from './components/layout/PageNotFound';
 import Profile from './components/Profile/Profile';
 import UpdateProfile from './components/Profile/UpdateProfile';
+import Search from './components/Request/Search';
+import UserProfile from './components/Request/UserProfile';
 function App() {
   const dispatch = useDispatch()
   useEffect(() => {
@@ -22,10 +24,9 @@ function App() {
 
   const { user } = useSelector(state => state.FetchUserReducer)
   return (
-    <>
+    <div className='main-container'>
       <Router>
         {/* *****************Common Components For All****************** */}
-        <Navbar />
         <ToastContainer />
 
         <Routes>
@@ -50,13 +51,19 @@ function App() {
             user && user.isAdmin === true && <Route exact path='/users' element={<AllUsers />}></Route>
           }
 
+          {/* ******************************Requests************************** */}
+          <Route path='/search' element={<Search />}></Route>
+          <Route path='/search/:username' element={<UserProfile />}></Route>
+
 
           {/* **************PAGE NOT FOUND 404***************** */}
           <Route path='*' element={<PageNotFound />}></Route>
 
         </Routes>
+        <Navbar />
+
       </Router>
-    </>
+    </div>
   );
 }
 

@@ -1,16 +1,41 @@
-import React, { useEffect } from 'react'
-import { FetchUser } from '../../redux/slices/UserSlices/FetchSlice'
+import React, { useEffect, useState } from 'react'
+import { ShowSingleUserFunction } from '../../redux/slices/RequestSlices/ShowSingleUserSlice'
 import './css/profile.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { AiFillProfile } from 'react-icons/ai';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { FollowFucntion } from '../../redux/slices/RequestSlices/FollowSlice';
+import { FetchUser } from '../../redux/slices/UserSlices/FetchSlice';
 
-const Profile = () => {
+const UserProfile = () => {
+
     const dispatch = useDispatch()
-    const { user } = useSelector(state => state.FetchUserReducer)
+    const { username } = useParams()
+    const { user } = useSelector(state => state.ShowSingleUserReducer)
+    const me = useSelector(state => state.FetchUserReducer)
+    const [followText, setFollowText] = useState("")
+    const SearchUserFollow = () => {
+
+        let text = me.user.following.user.filter((item) => {
+            return item.userID == user._id
+        })
+        if (text.length === 0) {
+            setFollowText('Follow')
+        }
+        else {
+            setFollowText('Unfollow')
+
+        }
+    }
     useEffect(() => {
-        dispatch(FetchUser())
+        dispatch(ShowSingleUserFunction(username))
     }, [])
+    useEffect(() => {
+        if (me.user && user) {
+            SearchUserFollow()
+        }
+
+    },[followText,SearchUserFollow,user,me])
     return (
         <>
             {
@@ -55,9 +80,16 @@ const Profile = () => {
                         <div className="profile-buttons">
                             <div className="profile-update">
                                 {
-                                    user
+                                    me && user && user.following && user.following.user
                                     &&
-                                    <Link to='/updateprofile'><button>update profile</button></Link>
+
+                                    <button onClick={async() => {
+                                        await dispatch(FollowFucntion(user._id))
+                                        dispatch(FetchUser())
+                                    }}>
+                                        {followText}
+                                    </button>
+
                                 }
                             </div>
                         </div>
@@ -86,4 +118,4 @@ const Profile = () => {
     )
 }
 
-export default Profile
+export default UserProfile

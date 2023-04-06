@@ -36,9 +36,12 @@ app.use('/', express.static(path.join(__dirname,"build")))
 // Routes 
 const userWebRoute = require(path.join(__dirname, 'routes/UserRoute/userWebRoute.js'))
 const userMobileRoute = require(path.join(__dirname, 'routes/UserRoute/userMobileRoute.js'))
+const requestWebRoute = require(path.join(__dirname, 'routes/RequestRoute/requestRoute.js'))
+
 
 app.use('/api/v1/web/', userWebRoute)
 app.use('/api/v1/mobile/', userMobileRoute)
+app.use('/api/v1/request/', requestWebRoute)
 app.get('/', (req, res) => {
     res.sendFile(path.join("build", "index.html"))
 })

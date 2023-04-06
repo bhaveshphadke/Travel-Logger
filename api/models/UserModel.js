@@ -108,7 +108,7 @@ const UserSchema = new mongoose.Schema({
     following: {
         user: [
             {
-                useID: {
+                userID: {
                     type: mongoose.Types.ObjectId,
                     required: true
                 }

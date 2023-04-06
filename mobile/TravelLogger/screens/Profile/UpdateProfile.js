@@ -9,9 +9,12 @@ import Loader from '../layout/Loader'
 import { FetchUser } from '../../redux/slices/UserSlices/FetchUserSlice';
 import { toast } from '../../redux/slices/UtilsSlices/ToastReducer';
 import Toast from '../layout/Toast';
+import { ChangeBio } from '../../redux/slices/ProfileSlices/ChangeBio';
 const UpdateProfile = () => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
+  const [description, setDescription] = useState("")
+  const [link, setLink] = useState("")
   const { user } = useSelector(state => state.FetchUserReducer)
   const userReducer = useSelector(state => state.ChangeUsernameReducer)
   const passwordReducer = useSelector(state => state.ChangePasswordReducer)
@@ -19,17 +22,31 @@ const UpdateProfile = () => {
   useEffect(() => {
     if (user) {
       setUsername(user.username)
+      if (user.bio && user.bio.description) {
+        setDescription(user.bio.description)
+      }
+      if (user.bio && user.bio.link) {
+        setLink(user.bio.link)
+      }
     }
+    disptach(toast())
   }, [])
 
   const ChangeUserNameFunc = async () => {
-    await disptach(ChangeUsername({ username, oldUsername: user.username }))
-    disptach(toast('message'))
-
+    const response = await disptach(ChangeUsername({ username, oldUsername: user.username }))
+    disptach(toast(response.payload.message))
     disptach(FetchUser())
   }
   const ChangePasswordFunc = async () => {
-    await disptach(ChangePassword({ password }))
+    const response = await disptach(ChangePassword({ password }))
+    disptach(toast(response.payload.message))
+
+    disptach(FetchUser())
+  }
+
+  const ChangeBioFunc = async (description, link) => {
+    const response = await disptach(ChangeBio({description, link}))
+    disptach(toast(response.payload.message))
     disptach(FetchUser())
   }
   return (
@@ -60,7 +77,10 @@ const UpdateProfile = () => {
                 }
               </TouchableOpacity>
             </View>
-            {userReducer && userReducer.message && <Text>{userReducer.message}</Text>}
+
+
+
+
             <View style={styles.eachInputView}>
               <TextInput
                 secureTextEntry={true}
@@ -81,11 +101,62 @@ const UpdateProfile = () => {
                     <ActivityIndicator size={30} color={pinkTextColor} />
                 }
               </TouchableOpacity>
+            </View>
+
+
+
+
+
+
+
+            <View style={styles.eachInputView}>
+              <TextInput
+                value={description}
+                onChangeText={setDescription}
+                placeholder="Change Bio Description"
+                style={styles.inputField}
+              />
+              <TouchableOpacity
+                onPress={() => { ChangeBioFunc(description, undefined) }}
+              >
+                {
+                  passwordReducer && !passwordReducer.loading ?
+
+                    <Entypo name="save" size={30} color={pinkTextColor} />
+
+                    :
+                    <ActivityIndicator size={30} color={pinkTextColor} />
+                }
+              </TouchableOpacity>
 
             </View>
-            {
-              passwordReducer && passwordReducer.message && <Text>{passwordReducer.message}</Text>
-            }
+
+
+
+
+            <View style={styles.eachInputView}>
+              <TextInput
+                value={link}
+                onChangeText={setLink}
+                placeholder="Change Link"
+                style={styles.inputField}
+              />
+              <TouchableOpacity
+                onPress={() => { ChangeBioFunc(undefined, link) }}
+              >
+                {
+                  passwordReducer && !passwordReducer.loading ?
+
+                    <Entypo name="save" size={30} color={pinkTextColor} />
+
+                    :
+                    <ActivityIndicator size={30} color={pinkTextColor} />
+                }
+              </TouchableOpacity>
+            </View>
+
+
+
           </View>
         </View>
       }
