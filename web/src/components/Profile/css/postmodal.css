@@ -1,0 +1,64 @@
+.post-modal {
+  width: 100vw;
+  height: 100vh;
+  /* background-color: red; */
+  background-color: rgba(128, 128, 128, 0.159);
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.post-modal > form {
+  background-color: white;
+  width: 80vw;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.post-modal > form > div > img {
+  width: 200px;
+  height: 200px;
+  background-color: cover;
+}
+.post-modal > form > div {
+  margin: 10px;
+}
+
+.post-modal > form > div:first-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.post-modal > form > div > input {
+  padding: 10px;
+  border-radius: 5px;
+}
+.post-modal > form > div > button {
+  padding: 2px 10px;
+  border-radius: 5px;
+  background-color: #fd8fb0;
+}
+
+.close {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 13vh;
+  right: 16vw;
+}
+.close > div:first-child {
+  transform: rotateZ(45deg);
+  width: 20px;
+  height: 1px;
+  background-color: black;
+}
+.close > div:last-child {
+  transform: rotateZ(-45deg);
+  width: 20px;
+  height: 1px;
+  background-color: black;
+}

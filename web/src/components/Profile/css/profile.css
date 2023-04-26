@@ -68,19 +68,20 @@ a {
   font-size: 0.7rem;
 }
 .post-image > img {
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 80%;
+  /* background-color: ge; */
 }
 @media screen and (max-width: 1000px) {
   .post-image {
-    width: 50%;
+    width: 20%;
     /* margin-bottom: 2.5rem; */
   }
   .post-image > img {
-    height: 100%;
+    height: 80%;
   }
   .profile-posts > div {
-    width: 50vmax;
+    width: 40vmax;
   }
   .updateprfile-container {
     border: 1px solid #ff6e99;

@@ -25,7 +25,6 @@ const Signup = () => {
       let reader = new FileReader()
       reader.onload = () => {
         if (reader.readyState === 2) {
-          console.log(reader);
           setPreviewImage(reader.result)
           setAvatar(reader.result)
         }

@@ -3,14 +3,17 @@
   color: #ff6e99;
 }
 
-
 .profile-update > a > button {
   padding: 5px;
   background-color: white;
   border-radius: 5px;
   font-size: 1.2rem;
 }
-
+.profile-update {
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+}
 .profile-buttons {
   border-bottom: 2px solid black;
   padding: 10px 0;

@@ -1,13 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 const { host, internalservererror } = require("../constant");
 export const ShowSingleUserFunction = createAsyncThunk(
-    'showuser',async(username)=>{
+    'showuser', async (username) => {
         const config = {
-            method:'GET',
-            credentials:'include'
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                'token': localStorage.getItem('token')
+            }
         }
 
-        const response = await fetch(`${host}/request/${username}`,config)
+        const response = await fetch(`${host}/request/${username}`, config)
         const data = await response.json()
 
         return data;
@@ -16,26 +20,26 @@ export const ShowSingleUserFunction = createAsyncThunk(
 
 
 const ShowSingleUserReducer = createSlice({
-    name:'showuser',
-    initialState:{},
-    reducers:{},
-    extraReducers:(builder)=>{
-        builder.addCase(ShowSingleUserFunction.fulfilled,(state,action)=>{
-            state.loading=false
+    name: 'showuser',
+    initialState: {},
+    reducers: {},
+    extraReducers: (builder) => {
+        builder.addCase(ShowSingleUserFunction.fulfilled, (state, action) => {
+            state.loading = false
             state.message = action.payload.message
             state.success = action.payload.success
             state.user = action.payload.user
         })
-        .addCase(ShowSingleUserFunction.pending,(state,action)=>{
-            state.loading=true
-            state.message = 'Loading'
-            state.success = false
-        })
-        .addCase(ShowSingleUserFunction.rejected,(state,action)=>{
-            state.loading=false
-            state.message = internalservererror
-            state.success =false
-        })
+            .addCase(ShowSingleUserFunction.pending, (state, action) => {
+                state.loading = true
+                state.message = 'Loading'
+                state.success = false
+            })
+            .addCase(ShowSingleUserFunction.rejected, (state, action) => {
+                state.loading = false
+                state.message = internalservererror
+                state.success = false
+            })
     }
 })
 

@@ -1,5 +1,5 @@
 const express = require('express')
-const { Signup, Login, FetchUser, ForgetPassword, ChangeForgetPassword, ChangePassword, ChangeUsername, LogoutUser, FetchAllUsers, EditProfileAdmin, DeleteUserAdmin, ChangeBio } = require('../../controllers/UserControllers/CommonController')
+const { Signup, Login, FetchUser, ForgetPassword, ChangeForgetPassword, ChangePassword, ChangeUsername, LogoutUser, FetchAllUsers, EditProfileAdmin, DeleteUserAdmin, ChangeBio, ChangeProfilePicture } = require('../../controllers/UserControllers/CommonController')
 const { SignupWeb, LoginWeb} = require('../../controllers/UserControllers/UserWebController')
 const { VerifyUser, isAdmin } = require('../../middlewares/VerifyUser')
 
@@ -17,6 +17,7 @@ router.get('/logout',LogoutUser)
 router.put('/changepassword',VerifyUser,ChangePassword)
 router.put('/changeusername',VerifyUser,ChangeUsername)
 router.put('/changebio',VerifyUser,ChangeBio)
+router.put('/changeprofilepicture',VerifyUser,ChangeProfilePicture)
 
 // router.post('/admin/adduser',VerifyUser,isAdmin)
 router.get('/admin/fetchallusers',VerifyUser,isAdmin,FetchAllUsers)

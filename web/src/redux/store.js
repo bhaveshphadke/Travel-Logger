@@ -13,6 +13,8 @@ import ChangeBioReducer from './slices/ProfileSlices/ChangeBio'
 import ShowListReducer from './slices/RequestSlices/ShowList'
 import ShowSingleUserReducer from './slices/RequestSlices/ShowSingleUserSlice'
 import FollowReducer from './slices/RequestSlices/FollowSlice'
+import ChangeProfilePictureReducer from './slices/ProfileSlices/ChangeProfilePictureSlice'
+import PostImageReducer from './slices/ProfileSlices/PostImageSlice'
 const store = configureStore({
     reducer:{
         SignupReducer,
@@ -28,7 +30,9 @@ const store = configureStore({
         ChangeBioReducer,
         ShowListReducer,
         ShowSingleUserReducer,
-        FollowReducer
+        FollowReducer,
+        PostImageReducer,
+        ChangeProfilePictureReducer,
         
     }
 })

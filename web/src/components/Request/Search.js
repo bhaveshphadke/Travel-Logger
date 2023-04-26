@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { ShowListFucntion } from '../../redux/slices/RequestSlices/ShowList';
 import './css/Search.css'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import Loader from '../layout/Loader';
 const Search = () => {
     const dispatch = useDispatch();
-    const { users } = useSelector(state => state.ShowListReducer);
+    const { users, loading } = useSelector(state => state.ShowListReducer);
     const [query, setQuery] = useState("*")
     useEffect(() => {
         dispatch(ShowListFucntion('*'))
@@ -15,30 +16,37 @@ const Search = () => {
         dispatch(ShowListFucntion(e.target.value))
     }
     return (
-        <div>
-            <div className='search-user-div'>
-                <input type="text" placeholder='Search user or enter * to show all' name="query" onChange={onChange} />
+        <>
+            {
+                loading ? <Loader />
 
-            </div>
-            <div className='pick-users-container'>
+                    :
+                    <div>
+                        <div className='search-user-div'>
+                            <input type="text" placeholder='Search user or enter * to show all' name="query" onChange={onChange} />
 
-                {
-                    users && users.map((item) => {
+                        </div>
+                        <div className='pick-users-container'>
 
-
-                        return (
-
-                            <div className='pick-user'><Link to={`${item.username}`}>{item.username}</Link></div>
-                        )
-                    })
-                }
-                {users && users.length === 0&& 
-                <div>No users found</div>
-                        }
+                            {
+                                users && users.map((item) => {
 
 
-            </div>
-        </div>
+                                    return (
+
+                                        <div className='pick-user'><Link to={`${item.username}`}>{item.username}</Link></div>
+                                    )
+                                })
+                            }
+                            {users && users.length === 0 &&
+                                <div>No users found</div>
+                            }
+
+
+                        </div>
+                    </div>
+            }
+        </>
     )
 }
 

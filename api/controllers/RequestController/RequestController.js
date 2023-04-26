@@ -1,6 +1,8 @@
 const { CatchAsyncError } = require("../../middlewares/CatchAsyncErrors");
 const User = require('../../models/UserModel')
 const { ErrorHandler } = require('../../utils/ErrorHandler')
+const cloudinary = require('cloudinary')
+
 exports.ShowUsersList = CatchAsyncError(async (req, res, next) => {
     let users;
     if (req.params.username === '*') {
@@ -18,8 +20,13 @@ exports.ShowUsersList = CatchAsyncError(async (req, res, next) => {
 
 
 exports.fetchUserForUser = CatchAsyncError(async (req, res, next) => {
-    const user = await User.findOne({ username: req.params.username })
-
+    let user = await User.findOne({ username: req.params.username }).populate(
+        {
+            path: 'following.user.userID followers.user.userID',
+            model: 'user',
+            select: 'username'
+        });
+    console.log(user.following.user);
     if (!user) {
         return next(ErrorHandler(404, "User Not Found!!"))
     }
@@ -54,7 +61,7 @@ exports.FollowController = CatchAsyncError(async (req, res, next) => {
         });
         me.following.user = users;
 
-        users = user.followers.user.filter((item)=>{
+        users = user.followers.user.filter((item) => {
             return item.userID != me.id;
         })
 
@@ -65,5 +72,39 @@ exports.FollowController = CatchAsyncError(async (req, res, next) => {
     res.status(200).json({
         success: true,
         message: 'success',
+    })
+})
+
+
+exports.PostTravel = CatchAsyncError(async (req, res, next) => {
+    const user = await User.findById(req.userID);
+    if (!user) {
+        return next(ErrorHandler(404, 'User Not Found!!'));
+    }
+
+    const { image, description, title } = req.body;
+
+    const result = await cloudinary.v2.uploader.upload(image, {
+        folder: 'a'
+    })
+    let post = {
+        image: [
+            {
+                public_id: result.public_id,
+                secure_url: result.secure_url
+            }
+        ],
+        title,
+        description
+    }
+    user.posts = [...user.posts,post];
+
+    // user.posts.push(title)
+    // user.posts.push(description)
+    user.save()
+
+    res.status(200).json({
+        success: true,
+        posts: user.posts
     })
 })

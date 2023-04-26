@@ -6,7 +6,7 @@ const path = require('path')
 const connectToMongo = require('./db')
 const { ErrorMiddleware } = require('./middlewares/ErrorMiddleware')
 require('dotenv').config()
-
+const User = require('./models/UserModel')
 // Declarations
 const PORT = process.env.PORT || 8000
 const app = express()
@@ -18,8 +18,10 @@ app.use(cors(
         credentials: true,
         origin: [
             "http://localhost:3000",
+            "http://localhost:3001",
+            "https://travel-logger.onrender.com"
         ],
-        methods: ["GET", "POST"],
+        methods: ["GET", "POST", "PUT", "DELETE"],
 
     }
 ))
@@ -48,7 +50,6 @@ app.use('/api/v1/request/', requestWebRoute)
 app.get('/', (req, res) => {
     res.sendFile(path.join("build", "index.html"))
 })
-
 app.use(ErrorMiddleware)
 
 app.listen(PORT, (err) => {

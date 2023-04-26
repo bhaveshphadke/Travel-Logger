@@ -20,13 +20,11 @@ exports.Signup = CatchAsyncError(async (req, res, next) => {
         return next(ErrorHandler(404, 'User Already Exists!!'))
     }
     const hashPassword = await bcrypt.hash(password, 10)
-    // let avatarOutput;
-    // if(avatar){
 
     let avatarOutput = await cloudinary.v2.uploader.upload(avatar, {
         folder: 'a'
     })
-    // }
+    
     console.log(1);
     user = await User.create({
         username, email, password: hashPassword, avatar: {
@@ -69,7 +67,11 @@ exports.Login = CatchAsyncError(async (req, res, next) => {
 exports.FetchUser = CatchAsyncError(async (req, res, next) => {
 
     let userID = req.userID
-    const user = await User.findById(userID)
+    const user = await User.findById(userID).populate({
+        path:'following.user.userID followers.user.userID',
+        model:'user',
+        select:'username'
+    })
     if (!user) {
         return next(ErrorHandler(403, "Not Authorised!!"));
     }
@@ -254,11 +256,37 @@ exports.EditProfileAdmin = CatchAsyncError(async (req, res, next) => {
 exports.DeleteUserAdmin = CatchAsyncError(async (req, res, next) => {
     const user = await User.findByIdAndDelete(req.body.id)
     if (!user) {
-        return next(ErrorHandler(403, "User doesn't Exists"))
+        return next(ErrorHandler(404, "User doesn't Exists"))
     }
     res.status(200).json({
         success: true,
         message: "User deleted Successfully!!",
         user
     })
+})
+
+
+exports.ChangeProfilePicture = CatchAsyncError(async(req,res,next)=>{
+    const {avatar} = req.body
+    const user = await User.findById(req.userID);
+    if (!user) {
+        return next(ErrorHandler(404, "User doesn't Exists"))
+    }
+
+   let avatarOutput = await cloudinary.v2.uploader.upload(avatar,{
+    folder:'a'
+   })
+
+   user.avatar[0].secure_url = avatarOutput.secure_url
+   user.avatar[0].public_id = avatarOutput.public_id
+
+   user.save();
+
+   res.status(200).json({
+    success:true,
+    message:'Image Updated Successfully'
+   })
+
+    
+
 })

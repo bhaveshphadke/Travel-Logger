@@ -16,6 +16,11 @@ import Profile from './components/Profile/Profile';
 import UpdateProfile from './components/Profile/UpdateProfile';
 import Search from './components/Request/Search';
 import UserProfile from './components/Request/UserProfile';
+import Following from './components/Request/Following';
+import Followers from './components/Request/Followers';
+import UserFollowers from './components/Request/UserFollowers';
+import UserFollowing from './components/Request/UserFollowing';
+import PostModal from './components/Profile/PostModal';
 function App() {
   const dispatch = useDispatch()
   useEffect(() => {
@@ -39,9 +44,10 @@ function App() {
           {/* ***********User Logged IN*********** */}
           {
             user &&
-
+            
             <>
               <Route exact path='/me' element={<Profile />}></Route>
+              <Route exact path='/me/post' element={<PostModal />}></Route>
               <Route exact path='/updateprofile' element={<UpdateProfile />}></Route>
             </>
           }
@@ -54,6 +60,10 @@ function App() {
           {/* ******************************Requests************************** */}
           <Route path='/search' element={<Search />}></Route>
           <Route path='/search/:username' element={<UserProfile />}></Route>
+          <Route path='/me/following' element={<Following />}></Route>
+          <Route path='/me/followers' element={<Followers />}></Route>
+          <Route path='/following/:username' element={<UserFollowing />}></Route>
+          <Route path='/followers/:username' element={<UserFollowers />}></Route>
 
 
           {/* **************PAGE NOT FOUND 404***************** */}

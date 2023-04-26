@@ -11,10 +11,12 @@ import { ChangeUsername } from '../../redux/slices/ProfileSlices/ChangeUsernameS
 import profile from '../../utils/profile.jpg'
 import './css/profileupdate.css'
 import ChangeBioComponent from './ChangeBioComponent';
+import { ChangeProfilePicture } from '../../redux/slices/ProfileSlices/ChangeProfilePictureSlice';
 
 const UpdateProfile = () => {
   const navigate = useNavigate()
   const { user } = useSelector(state => state.FetchUserReducer)
+  const { success, message, loading } = useSelector(state => state.ChangeProfilePictureReducer)
   const dispatch = useDispatch()
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
@@ -36,7 +38,41 @@ const UpdateProfile = () => {
     else if (e.target.name === 'password') {
       setPassword(e.target.value)
     }
+    else if (e.target.name === 'avatar') {
+      let reader = new FileReader();
+
+      reader.onload = () => {
+        setPreviewImage(reader.result)
+      }
+
+      reader.readAsDataURL(e.target.files[0])
+    }
   }
+
+  const ChangeProfilePic = () => {
+    dispatch(ChangeProfilePicture(previewImage));
+  }
+
+  const ChangePass = async () => {
+    const response = await dispatch(ChangePassword({ password }))
+    dispatch(FetchUser())
+    toast(response.payload.message)
+
+  }
+
+  const ChangeUser = async () => {
+    console.log(1);
+    const response = await dispatch(ChangeUsername({ username, oldUsername: user.username }))
+    dispatch(FetchUser())
+    toast(response.payload.message)
+
+  }
+
+  useEffect(() => {
+    if (!loading) {
+      toast(message)
+    }
+  }, [success, message])
 
   return (
     <>
@@ -58,8 +94,22 @@ const UpdateProfile = () => {
                 <div>
                   <img src={previewImage} alt="profile picture" />
                 </div>
-                <div>
+                <div className="update-username update-field">
                   <input type="file" name="avatar" id="avatar" className="avatar" onChange={onChange} required />
+
+                  <div style={{
+                    position:'relative',
+                    left:'100px'
+                  }}>
+                    <AiFillSave
+                      className='react-icons'
+                      style={{
+                        marginRight: '10px',
+                        transform: 'translate3d(90px, -34px, 0)'
+
+                      }}
+                      onClick={ChangeProfilePic} />
+                  </div>
                 </div>
               </div>
 
@@ -67,13 +117,7 @@ const UpdateProfile = () => {
                 <input type="text" name="username" id="username" value={username} onChange={onChange} autocomplete="off" />
                 <AiFillSave
                   className='react-icons'
-                  onClick={async () => {
-                    console.log(1);
-                    const response = await dispatch(ChangeUsername({ username, oldUsername: user.username }))
-                    dispatch(FetchUser())
-                    toast(response.payload.message)
-
-                  }} />
+                  onClick={ChangeUser} />
               </div>
               <>
                 <div className="update-password update-field">
@@ -81,12 +125,9 @@ const UpdateProfile = () => {
 
                   <AiFillSave
                     className='react-icons'
-                    onClick={async () => {
-                      const response = await dispatch(ChangePassword({ password }))
-                      dispatch(FetchUser())
-                      toast(response.payload.message)
-
-                    }} />
+                    onClick={ChangePass}
+                    disabled={password.length < 5}
+                  />
                 </div>
                 {
                   showPass === "password" ?
@@ -113,7 +154,7 @@ const UpdateProfile = () => {
                     />
                 }
               </>
-             <ChangeBioComponent/>
+              <ChangeBioComponent />
             </div>
           </div>
         </>

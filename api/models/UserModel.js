@@ -9,14 +9,14 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    bio:{
-            description: {
-                type: String
-            },
-            link: {
-                type:String
-            }
+    bio: {
+        description: {
+            type: String
         },
+        link: {
+            type: String
+        }
+    },
     avatar: [
         {
             public_id: {
@@ -31,16 +31,25 @@ const UserSchema = new mongoose.Schema({
     ],
     posts: [
         {
-            public_id: {
+            title: {
                 type: String,
                 required: true
             },
-            secure_url: {
+            image: [
+                {
+                    public_id: {
+                        type: String,
+                        required: true
+                    },
+                    secure_url: {
+                        type: String,
+                        required: true
+                    },
+                }
+            ],
+            description: {
                 type: String,
-                required: true
-            },
-            caption: {
-                type: String
+                required:true
             },
             likes: {
                 user: [
