@@ -25,7 +25,7 @@ function App() {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(FetchUser())
-    localStorage.setItem('token')
+    localStorage.setItem('token','token')
   }, [dispatch])
 
   const { user } = useSelector(state => state.FetchUserReducer)
