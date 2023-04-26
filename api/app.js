@@ -20,8 +20,7 @@ app.use(cors(
             "http://localhost:3000",
             "http://localhost:3001",
             "https://travel-logger.onrender.com"
-        ],
-        methods: ["GET", "POST", "PUT", "DELETE"],
+        ]
 
     }
 ))
