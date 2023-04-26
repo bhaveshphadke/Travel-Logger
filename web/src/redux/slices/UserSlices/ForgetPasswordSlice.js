@@ -5,8 +5,7 @@ export const ForgetPasswordFunc = createAsyncThunk(
         const config = {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                'token': localStorage.getItem('token')
+                'Content-Type': 'application/json'
             },
             credentials: 'include',
             body: JSON.stringify({ username })

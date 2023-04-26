@@ -6,8 +6,7 @@ export const FetchUser = createAsyncThunk(
             method: 'GET',
             credentials: 'include',
             headers: {
-                'Content-Type': 'application/json',
-                'token': localStorage.getItem('token')
+                'Content-Type': 'application/json'
             }
         });
         const data = await response.json()

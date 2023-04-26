@@ -23,9 +23,6 @@ const SignupReducer = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(SignupUser.fulfilled, (state, action) => {
-                if(action.payload.success){
-                    localStorage.setItem('token',action.payload.token)
-                }
                 state.loading = false
                 state.success=action.payload.success
                 state.message=action.payload.message

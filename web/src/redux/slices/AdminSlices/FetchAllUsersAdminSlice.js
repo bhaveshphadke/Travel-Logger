@@ -7,8 +7,7 @@ export const FetchAllUsersAdmin = createAsyncThunk(
             method: 'GET',
             credentials: 'include',
             headers: {
-                'Content-Type': 'application/json',
-                'token': localStorage.getItem('token')
+                'Content-Type': 'application/json'
             }
         }
 

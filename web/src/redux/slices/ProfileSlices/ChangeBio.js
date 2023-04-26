@@ -6,8 +6,7 @@ export const ChangeBio = createAsyncThunk(
         const config = {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json',
-                'token': localStorage.getItem('token')
+                'Content-Type': 'application/json'
             },
             credentials: 'include',
             body: JSON.stringify({ description, link })

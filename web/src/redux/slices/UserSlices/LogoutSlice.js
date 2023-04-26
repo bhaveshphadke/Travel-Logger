@@ -16,9 +16,6 @@ const LogoutUserReducer = createSlice({
     reducers:{},
     extraReducers:(builder)=>{
         builder.addCase(LogoutUser.fulfilled,(state,action)=>{
-            if(action.payload.success){
-                localStorage.removeItem('token')
-            }
             state.loading=false
             state.message='Logged OUT'
             state.success=action.payload.success
