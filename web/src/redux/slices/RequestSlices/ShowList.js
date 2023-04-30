@@ -8,7 +8,7 @@ export const ShowListFucntion = createAsyncThunk(
             credentials: 'include',
             headers: {
                 'Content-Type':'application/json',
-                'token':localStorage.getItem('token')
+                'token':JSON.parse(localStorage.getItem('token'))
             }
         }
 
