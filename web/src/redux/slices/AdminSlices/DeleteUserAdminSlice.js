@@ -6,7 +6,8 @@ export const DeleteUserAdmin = createAsyncThunk(
         const config = {
             method:'DELETE',
             headers:{
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                'token':localStorage.getItem('token')
             },
             credentials:'include',
             body:JSON.stringify({id})

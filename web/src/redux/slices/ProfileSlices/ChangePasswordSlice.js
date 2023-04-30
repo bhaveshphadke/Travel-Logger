@@ -6,7 +6,8 @@ export const ChangePassword = createAsyncThunk(
         const config = {
             method:'PUT',
             headers:{
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                'token':localStorage.getItem('token')
             },
             credentials:'include',
             body:JSON.stringify({newPassword:password})

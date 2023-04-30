@@ -6,7 +6,8 @@ export const FollowFucntion = createAsyncThunk(
         const config = {
             method:'POST',
             headers:{
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                'token':localStorage.getItem('token')
             },
             credentials:'include',
             body:JSON.stringify({id})
